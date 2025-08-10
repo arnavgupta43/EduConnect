@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const bcryptjs = require("bcryptjs");
 
 const adminSchema = new mongoose.Schema(
   {

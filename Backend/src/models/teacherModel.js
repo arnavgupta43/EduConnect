@@ -1,6 +1,6 @@
-import mongoose, { model } from "mongoose";
-import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const bcryptjs = require("bcryptjs");
 
 // Teacher Model
 const teacherSchema = new mongoose.Schema(
@@ -71,7 +71,7 @@ teacherSchema.methods.createJWT = function () {
     { username: this.username, role: "teacher", _id: this._id },
     process.env.JWT_SECRET,
     {
-      expiresIn: "30d",
+      expiresIn: "2d",
     }
   );
 };
