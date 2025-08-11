@@ -6,6 +6,8 @@ const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const ErrorHandler = require("./middlewares/errorHandler");
 const loginRoute = require("./routes/auth");
+const dashboradRoute = require("./routes/dashboardRoute");
+const adminRoutes = require("./routes/adminRoutes");
 const morgan = require("morgan");
 app.use(helmet());
 app.use(
@@ -27,6 +29,9 @@ app.use(limiter);
 app.use(morgan("combined"));
 app.use(express.json()); // parse JSON bodies
 app.use(express.urlencoded({ extended: true }));
-app.use(ErrorHandler);
 app.use("/login", loginRoute);
+app.use("/dashboard", dashboradRoute);
+app.use("/admin", adminRoutes);
+app.use(ErrorHandler);
+
 module.exports = app;
