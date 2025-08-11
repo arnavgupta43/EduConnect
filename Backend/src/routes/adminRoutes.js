@@ -4,6 +4,7 @@ const { validate } = require("../middlewares/validationMiddleware");
 const { check } = require("express-validator");
 const { getTeacherById } = require("../controllers/adminController");
 const validationMiddleware = require("../middlewares/authMiddleware");
+const { updateTeacher } = require("../controllers/adminController");
 router.route("/:id").get(validationMiddleware, getTeacherById);
-
+router.route("/:id").patch(validationMiddleware, updateTeacher);
 module.exports = router;
