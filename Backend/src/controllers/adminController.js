@@ -1,6 +1,7 @@
 const Teacher = require("../models/teacherModel");
 const { StatusCodes } = require("http-status-codes");
 const mongoose = require("mongoose");
+const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 const AdminDashBoard = async (req, res, next) => {
   try {
     const page = Math.max(parseInt(req.query.page || "1", 10), 1);
@@ -93,6 +94,11 @@ const createTeacher = async (req, res, next) => {
 const getTeacherById = async (req, res, next) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      const err = new Error("Invalid object Id");
+      err.statusCode = StatusCodes.BAD_REQUEST;
+      return next(err);
+    }
     const teacher = await Teacher.findById(id).select("-passwordHash");
     if (!teacher) {
       const err = new Error("Teacher Not Found");
@@ -109,6 +115,11 @@ const getTeacherById = async (req, res, next) => {
 const updateTeacher = async (req, res, next) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      const err = new Error("Invaild ObjectId");
+      err.statusCode = StatusCodes.BAD_REQUEST;
+      return next(err);
+    }
     const {
       username,
       name,
