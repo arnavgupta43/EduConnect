@@ -8,14 +8,14 @@ const teacherLogin = async (req, res, next) => {
 
     const teacher = await Teacher.findOne({ email });
     if (!teacher) {
-      const err = new Error("No teacher found with the email");
+      const err = new Error("Invalid Credentials");
       err.statusCode = StatusCodes.NOT_FOUND;
       return next(err);
     }
 
-    const validPassword = await te.matchPassword(password);
+    const validPassword = await teacher.matchPassword(password);
     if (!validPassword) {
-      const err = new Error("Invalid Password");
+      const err = new Error("Invalid Credentials");
       err.statusCode = StatusCodes.UNAUTHORIZED;
       return next(err);
     }
