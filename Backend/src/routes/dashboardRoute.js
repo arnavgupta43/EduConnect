@@ -3,7 +3,8 @@ const router = express.Router();
 const { validate } = require("../middlewares/validationMiddleware");
 const { check } = require("express-validator");
 const { AdminDashBoard } = require("../controllers/adminController");
+const TeacherDashBoard = require("../controllers/teacherController");
 const validationMiddleware = require("../middlewares/authMiddleware");
 router.route("/admin").get(validationMiddleware, AdminDashBoard);
-
+router.route("/teacher").get(validationMiddleware, TeacherDashBoard);
 module.exports = router;
