@@ -2,11 +2,16 @@ const express = require("express");
 const router = express.Router();
 const { validate } = require("../middlewares/validationMiddleware");
 const { check } = require("express-validator");
-const { createTeacher } = require("../controllers/adminController");
-const { getTeacherById } = require("../controllers/adminController");
 const validationMiddleware = require("../middlewares/authMiddleware");
-const { updateTeacher } = require("../controllers/adminController");
+const {
+  deleteTeacher,
+  updateTeacher,
+  getTeacherById,
+  createTeacher,
+} = require("../controllers/adminController");
+
 router.route("/:id").get(validationMiddleware, getTeacherById);
 router.route("/:id").patch(validationMiddleware, updateTeacher);
+router.route("/:id").delete(validationMiddleware, deleteTeacher);
 router.route("/create").post(validationMiddleware, createTeacher);
 module.exports = router;
