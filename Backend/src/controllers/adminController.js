@@ -168,6 +168,11 @@ const updateTeacher = async (req, res, next) => {
 const deleteTeacher = async (req, res, next) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      const err = new Error("Invalid ObjectId");
+      err.statusCode = StatusCodes.BAD_REQUEST;
+      return next(err);
+    }
     const deleted = await Teacher.findByIdAndDelete(id);
     if (!deleted) {
       const err = new Error("Teacher not found");
