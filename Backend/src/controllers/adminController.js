@@ -69,7 +69,7 @@ const createTeacher = async (req, res, next) => {
       publications,
     };
 
-    const new_Teacher = Teacher.create({
+    const new_Teacher = await Teacher.create({
       username,
       name,
       email,
@@ -187,3 +187,24 @@ module.exports = {
   deleteTeacher,
   getTeacherById,
 };
+
+// {
+//     "username":"dummyOne",
+//     "name":"dummy",
+//     "email":"dummy@gmail.com",
+//     "password":"password123",
+//     "age":"19",
+//     "mobileNo":"0384833",
+//     "address":"kengeri",
+//     "photo":"",
+//     "previousExperience":[
+//         "mysore","kolkata"
+//     ],
+//     "researchInterests":[
+//         "chemistry", "physics"
+//     ],
+//     "publications":[
+//         "spinger","googleScholar"
+//     ]
+
+// }
