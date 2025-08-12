@@ -5,6 +5,11 @@ const { check } = require("express-validator");
 const { AdminDashBoard } = require("../controllers/adminController");
 const TeacherDashBoard = require("../controllers/teacherController");
 const validationMiddleware = require("../middlewares/authMiddleware");
-router.route("/admin").get(validationMiddleware, AdminDashBoard);
-router.route("/teacher").get(validationMiddleware, TeacherDashBoard);
+const checkRole = require("../middlewares/checkRoleMiddleware");
+router
+  .route("/admin")
+  .get(validationMiddleware, checkRole("admin"), AdminDashBoard);
+router
+  .route("/teacher")
+  .get(validationMiddleware, checkRole("admin", "teacher"), TeacherDashBoard);
 module.exports = router;
