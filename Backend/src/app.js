@@ -8,6 +8,7 @@ const ErrorHandler = require("./middlewares/errorHandler");
 const loginRoute = require("./routes/auth");
 const dashboradRoute = require("./routes/dashboardRoute");
 const adminRoutes = require("./routes/adminRoutes");
+const uploadRoute = require("./routes/uploadRoute");
 const morgan = require("morgan");
 app.use(helmet());
 app.use(
@@ -32,6 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/login", loginRoute);
 app.use("/dashboard", dashboradRoute);
 app.use("/admin", adminRoutes);
+app.use("/upload", uploadRoute);
 app.use(ErrorHandler);
 
 module.exports = app;
