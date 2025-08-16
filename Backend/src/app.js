@@ -10,11 +10,13 @@ const dashboradRoute = require("./routes/dashboardRoute");
 const adminRoutes = require("./routes/adminRoutes");
 const uploadRoute = require("./routes/uploadRoute");
 const morgan = require("morgan");
+const FRONTEND_URL = "http://localhost:5173";
 app.use(helmet());
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "*",
-    methods: ["GET", "POST", "PATCH", "DELETE"],
+    origin: FRONTEND_URL,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
@@ -30,7 +32,7 @@ app.use(limiter);
 app.use(morgan("combined"));
 app.use(express.json()); // parse JSON bodies
 app.use(express.urlencoded({ extended: true }));
-app.use("/login", loginRoute);
+app.use("/auth", loginRoute);
 app.use("/dashboard", dashboradRoute);
 app.use("/admin", adminRoutes);
 app.use("/upload", uploadRoute);
