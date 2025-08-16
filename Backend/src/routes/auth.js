@@ -4,6 +4,11 @@ const { adminLogin } = require("../controllers/adminLogin");
 const { teacherLogin } = require("../controllers/teacherLogin");
 const { validate } = require("../middlewares/validationMiddleware");
 const { check } = require("express-validator");
+const {
+  verifyTeacher,
+  verifyAdmin,
+} = require("../controllers/verifyController");
+const validationMiddleware = require("../middlewares/authMiddleware");
 router
   .route("/teacher")
   .post(
@@ -32,5 +37,6 @@ router
     validate,
     adminLogin
   );
-
+router.route("/verifyTeacher").get(validationMiddleware, verifyTeacher);
+router.route("/verifyAdmin").get(validationMiddleware, verifyAdmin);
 module.exports = router;
