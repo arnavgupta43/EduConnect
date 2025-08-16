@@ -11,5 +11,5 @@ router
   .get(validationMiddleware, checkRole("admin"), AdminDashBoard);
 router
   .route("/teacher")
-  .get(validationMiddleware, checkRole("admin", "teacher"), TeacherDashBoard);
+  .get(validationMiddleware, checkRole("teacher"), TeacherDashBoard);
 module.exports = router;
