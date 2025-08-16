@@ -20,7 +20,16 @@ const adminLogin = async (req, res, next) => {
     }
 
     const token = admin.createJWT();
-    return res.status(StatusCodes.OK).json({ status: "success", token });
+    return res.status(StatusCodes.OK).json({
+      status: "success",
+      user: {
+        email: email,
+        name: admin.name,
+        role: "admin",
+        id: admin._id,
+      },
+      token,
+    });
   } catch (error) {
     return next(error);
   }

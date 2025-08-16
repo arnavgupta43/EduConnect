@@ -21,7 +21,16 @@ const teacherLogin = async (req, res, next) => {
     }
 
     const token = teacher.createJWT();
-    return res.status(StatusCodes.OK).json({ status: "success", token });
+    return res.status(StatusCodes.OK).json({
+      status: "success",
+      user: {
+        email:email,
+        name: teacher.name,
+        role: "teacher",
+        id: teacher._id,
+      },
+      token,
+    });
   } catch (error) {
     return next(error);
   }
