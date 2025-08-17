@@ -5,6 +5,7 @@ import TeacherLogin from "./pages/TeacherLogin";
 import AdminLogin from "./pages/AdminLogin";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import PrivateRoute from "./components/PrivateRoute";
+import AdminDashboard from "./pages/AdminDashboard";
 import "./App.css";
 import "./index.css";
 import { Routes, Route } from "react-router-dom";
@@ -19,6 +20,14 @@ function App() {
         element={
           <PrivateRoute>
             <TeacherDashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/admin/dashboard"
+        element={
+          <PrivateRoute>
+            <AdminDashboard />
           </PrivateRoute>
         }
       />
