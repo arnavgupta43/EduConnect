@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { useAuth } from "../hooks/useAuth";
 import axios from "axios";
 import AdminImage from "../assets/admin_image.jpg";
@@ -29,7 +29,10 @@ const AdminLoginCard = () => {
   const OnLogin = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("/admin/login", userCred);
+      const response = await axios.post(
+        "http://localhost:3030/auth/admin",
+        userCred
+      );
       login(response.data.user, response.data.token);
       toast.success("Login successful!");
       navigate("/admin/dashboard");
@@ -42,6 +45,7 @@ const AdminLoginCard = () => {
   };
   return (
     <>
+      <Toaster position="top-right" />
       <div className="bg-gradient-to-r from-purple-50 to-pink-50 min-h-screen">
         {/* Main Content */}
         <div className="max-w-7xl mx-auto mt-27 px-4 sm:px-6 lg:px-8 py-12">
