@@ -29,5 +29,5 @@ EduConnect is a full-stack educational platform designed to manage teachers, stu
 - MongoDB with Mongoose
 - JWT Authentication
 - CORS Handling
-
+- S3 (Storage)
 ---
