@@ -5,7 +5,7 @@ import TeacherAbout from "../components/TeacherDashBoard/TeacherAbout";
 import TeacherResearch from "../components/TeacherDashBoard/TeacherResearch";
 import TeacherPublications from "../components/TeacherDashBoard/TeacherPublications";
 import TeacherCourses from "../components/TeacherDashBoard/TeacherCourses";
-import toast from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -47,7 +47,6 @@ const TeacherDashBoard = () => {
         });
         fetchTeacher();
       } catch (error) {
-        // Token invalid or expired — logout and redirect
         logout();
         navigate("/teacher/login");
       }
@@ -59,6 +58,7 @@ const TeacherDashBoard = () => {
   if (!teacher) return <p className="p-6">Loading teacher profile...</p>;
   return (
     <div className="min-h-screen bg-gray-50">
+      <Toaster position="top-right" />
       <TeacherHeader teacher={teacher} logout={logoutFunction} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow-sm">
