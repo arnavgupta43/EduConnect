@@ -1,6 +1,7 @@
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import Home from "./pages/Home";
+import MainLayout from "./layouts/MainLayout";
 import TeacherLogin from "./pages/TeacherLogin";
 import AdminLogin from "./pages/AdminLogin";
 import TeacherDashboard from "./pages/TeacherDashboard";
@@ -12,9 +13,12 @@ import { Routes, Route } from "react-router-dom";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/teacher/login" element={<TeacherLogin />} />
-      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/teacher/login" element={<TeacherLogin />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+      </Route>
+
       <Route
         path="/teacher/dashboard"
         element={
