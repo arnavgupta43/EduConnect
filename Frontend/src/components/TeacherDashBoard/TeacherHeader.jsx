@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import React from "react";
 
-const TeacherHeader = ({ teacher, logout }) => {
+const TeacherHeader = ({ teacher, logout, displayLogout }) => {
   return (
     <div className="bg-white bg-b-slate-950 px-6 py-4 flex items-center space-x-4 shadow-sm">
       <img
@@ -19,12 +19,15 @@ const TeacherHeader = ({ teacher, logout }) => {
           Ph.D., Christ University Bengaluru
         </a>
       </div>
-      <button
-        onClick={logout}
-        className="bg-red-500 hover:bg-red-600 border-black text-white px-4 py-2 rounded-lg"
-      >
-        Logout
-      </button>
+      {displayLogout === "display" && (
+        <button
+          onClick={logout}
+          className="bg-red-500 hover:bg-red-600 border-black text-white px-4 py-2 rounded-lg"
+        >
+          {" "}
+          Logout{" "}
+        </button>
+      )}
     </div>
   );
 };

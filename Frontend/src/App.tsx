@@ -7,6 +7,7 @@ import AdminLogin from "./pages/AdminLogin";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminViewTeacher from "./pages/AdminViewTeacher";
 import "./App.css";
 import "./index.css";
 import { Routes, Route } from "react-router-dom";
@@ -18,7 +19,14 @@ function App() {
         <Route path="/teacher/login" element={<TeacherLogin />} />
         <Route path="/admin/login" element={<AdminLogin />} />
       </Route>
-
+      <Route
+        path="/admin/view/:id"
+        element={
+          <PrivateRoute>
+            <AdminViewTeacher />
+          </PrivateRoute>
+        }
+      />
       <Route
         path="/teacher/dashboard"
         element={

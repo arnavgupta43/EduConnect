@@ -60,7 +60,11 @@ const TeacherDashBoard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Toaster position="top-right" />
-      <TeacherHeader teacher={teacher} logout={logoutFunction} />
+      <TeacherHeader
+        teacher={teacher}
+        logout={logoutFunction}
+        displayLogout={"display"}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow-sm">
           <TeacherTabs activeTab={activeTab} setActiveTab={setActiveTab} />
