@@ -4,6 +4,7 @@ import TeacherCard from "../components/TeacherCard";
 import { useAuth } from "../hooks/useAuth";
 import AdminHeader from "../components/AdminDashboard/AdminHeader";
 import { toast, Toaster } from "react-hot-toast";
+const API = import.meta.env.VITE_API_BASE_URL;
 const AdminDashboard = () => {
   const [teachers, setTeachers] = useState([]);
   const [page, setPage] = useState(1);
@@ -13,7 +14,7 @@ const AdminDashboard = () => {
 
   const fetchTeachers = async (page) => {
     try {
-      const res = await axios.get(`http://localhost:3030/dashboard/admin`, {
+      const res = await axios.get(`${API}/dashboard/admin`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -30,7 +31,7 @@ const AdminDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3030/admin/${id}`);
+      await axios.delete(`${API}/admin/${id}`);
       fetchTeachers(page);
     } catch (err) {
       console.error("Error deleting teacher:", err);

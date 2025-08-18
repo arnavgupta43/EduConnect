@@ -4,6 +4,7 @@ import { toast, Toaster } from "react-hot-toast";
 import { useAuth } from "../hooks/useAuth";
 import axios from "axios";
 import AdminImage from "../assets/admin_image.jpg";
+const API = import.meta.env.VITE_API_BASE_URL;
 const AdminLoginCard = () => {
   const { login, user, token } = useAuth();
   const [loading, setLoading] = React.useState(false);
@@ -29,10 +30,7 @@ const AdminLoginCard = () => {
   const OnLogin = async () => {
     try {
       setLoading(true);
-      const response = await axios.post(
-        "http://localhost:3030/auth/admin",
-        userCred
-      );
+      const response = await axios.post(`${API}/auth/admin`, userCred);
       login(response.data.user, response.data.token);
       toast.success("Login successful!");
       navigate("/admin/dashboard");

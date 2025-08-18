@@ -9,6 +9,7 @@ import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+const API = import.meta.env.VITE_API_BASE_URL;
 const TeacherDashBoard = () => {
   const { token, logout, user } = useAuth();
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const TeacherDashBoard = () => {
 
   const fetchTeacher = async () => {
     try {
-      const res = await axios.get("http://localhost:3030/dashboard/teacher", {
+      const res = await axios.get(`${API}/dashboard/teacher`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +41,7 @@ const TeacherDashBoard = () => {
   useEffect(() => {
     const verifyAuth = async () => {
       try {
-        await axios.get("http://localhost:3030/auth/verifyTeacher", {
+        await axios.get(`${API}/auth/verifyTeacher`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

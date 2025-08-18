@@ -4,6 +4,7 @@ import { toast, Toaster } from "react-hot-toast";
 import { useAuth } from "../hooks/useAuth";
 import axios from "axios";
 import TeacherImage from "../assets/teacher_login.avif";
+const API = import.meta.env.VITE_API_BASE_URL;
 const TeacherLoginCard = () => {
   const { login, user, token } = useAuth();
   const [loading, setLoading] = React.useState(false);
@@ -29,10 +30,7 @@ const TeacherLoginCard = () => {
   const OnLogin = async () => {
     try {
       setLoading(true);
-      const response = await axios.post(
-        "http://localhost:3030/auth/teacher",
-        userCred
-      );
+      const response = await axios.post(`${API}/auth/teacher`, userCred);
       login(response.data.user, response.data.token);
       toast.success("Login successful!");
       navigate("/teacher/dashboard");
