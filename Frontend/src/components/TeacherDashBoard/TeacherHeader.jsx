@@ -6,11 +6,11 @@ import React from "react";
 
 const TeacherHeader = ({ teacher, logout }) => {
   return (
-    <div className="bg-white border-b px-6 py-4 flex items-center space-x-4 shadow-sm">
+    <div className="bg-white bg-b-slate-950 px-6 py-4 flex items-center space-x-4 shadow-sm">
       <img
         src={teacher.profile.photo}
         alt={teacher.name}
-        className="w-16 h-16 rounded-full"
+        className="w-20 h-20 rounded-full"
       />
       <div className="flex-1">
         <h2 className="text-2xl font-bold">{teacher.name}</h2>
@@ -21,7 +21,7 @@ const TeacherHeader = ({ teacher, logout }) => {
       </div>
       <button
         onClick={logout}
-        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+        className="bg-red-500 hover:bg-red-600 border-black text-white px-4 py-2 rounded-lg"
       >
         Logout
       </button>
