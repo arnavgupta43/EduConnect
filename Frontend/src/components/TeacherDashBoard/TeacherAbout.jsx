@@ -6,7 +6,7 @@ const TeacherAbout = ({ teacher }) => {
       <h3 className="text-xl font-semibold mb-2">Biography</h3>
       <p className="text-gray-700 mb-4">
         {teacher.bio ||
-          `Benson K Money is a distinguished professor at Christ University Bengaluru. With extensive experience in Mysore College of Engineering, they have made significant contributions in their respective field. Their research focuses on materials.`}
+          `${teacher.name} is a distinguished professor at Christ University Bengaluru. With ${teacher.profile.previousExperience}, they have made significant contributions in their respective field. Their research focuses on materials.`}
       </p>
 
       <h3 className="text-xl font-semibold mb-2">Research Interests</h3>

@@ -1,4 +1,5 @@
 import { Award } from "lucide-react";
+import { FileText } from "lucide-react";
 
 const TeacherResearch = ({ teacher }) => (
   <div className="space-y-8">
@@ -15,7 +16,24 @@ const TeacherResearch = ({ teacher }) => (
             {teacher.name}'s research interests span across multiple areas of
             computer science:
           </p>
-
+          <div className="space-y-4">
+            {teacher.profile.researchInterests.map((interests, index) => (
+              <div
+                key={index}
+                className="border border-gray-200 rounded-lg p-4"
+              >
+                <div className="flex items-start">
+                  <FileText className="w-5 h-5 text-blue-600 mr-3 mt-1" />
+                  <div>
+                    <h3 className="font-medium text-gray-900">{interests}</h3>
+                    <p className="text-gray-600 text-sm mt-1">
+                      Published research work
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
           {teacher.profile?.previousExperience && (
             <div className="mt-6 p-4 bg-gray-50 rounded-lg">
               <h3 className="font-medium text-gray-900 mb-2">
