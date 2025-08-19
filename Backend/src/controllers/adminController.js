@@ -33,6 +33,7 @@ const AdminDashBoard = async (req, res, next) => {
 
 const createTeacher = async (req, res, next) => {
   try {
+    console.log("Incoming request body:", req.body);
     const {
       username,
       name,
@@ -41,7 +42,7 @@ const createTeacher = async (req, res, next) => {
       age,
       mobileNo,
       address,
-      photo,
+      image,
       previousExperience,
       researchInterests,
       publications,
@@ -60,8 +61,8 @@ const createTeacher = async (req, res, next) => {
       return next(err);
     }
     const profile = {
-      photo,
-      age,
+      photo: image,
+      age: parseInt(req.body.age, 10),
       mobileNo,
       address,
       previousExperience,
@@ -87,6 +88,7 @@ const createTeacher = async (req, res, next) => {
       .status(StatusCodes.CREATED)
       .json({ status: "success", teacher: teacherObj });
   } catch (error) {
+    console.log(error);
     return next(error);
   }
 };

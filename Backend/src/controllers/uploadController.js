@@ -34,6 +34,11 @@ exports.uploadImage = async (req, res, next) => {
       Body: req.file.buffer,
       ContentType: req.file.mimetype,
     };
+    console.log("File:", req.file);
+    console.log("AWS Params:", params);
+    console.log("Received file:", req.file.originalname);
+    console.log("MIME Type:", req.file.mimetype);
+    console.log("File Size:", req.file.size);
     await s3.send(new PutObjectCommand(params));
     const url = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
     return res.status(201).json({ status: "success", key, url });
