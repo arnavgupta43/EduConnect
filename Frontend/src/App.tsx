@@ -8,6 +8,7 @@ import TeacherDashboard from "./pages/TeacherDashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminViewTeacher from "./pages/AdminViewTeacher";
+import AdminCreateTeacher from "./pages/AdminCreateTeacher";
 import "./App.css";
 import "./index.css";
 import { Routes, Route } from "react-router-dom";
@@ -24,6 +25,14 @@ function App() {
         element={
           <PrivateRoute>
             <AdminViewTeacher />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/admin/create"
+        element={
+          <PrivateRoute>
+            <AdminCreateTeacher />
           </PrivateRoute>
         }
       />
