@@ -9,6 +9,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminViewTeacher from "./pages/AdminViewTeacher";
 import AdminCreateTeacher from "./pages/AdminCreateTeacher";
+import AdminUpdate from "./pages/AdminUpdate";
 import "./App.css";
 import "./index.css";
 import { Routes, Route } from "react-router-dom";
@@ -25,6 +26,14 @@ function App() {
         element={
           <PrivateRoute>
             <AdminViewTeacher />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/admin/update/:id"
+        element={
+          <PrivateRoute>
+            <AdminUpdate />
           </PrivateRoute>
         }
       />

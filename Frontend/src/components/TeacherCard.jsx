@@ -1,8 +1,11 @@
-import React from "react";
+import React, { use } from "react";
 import { useNavigate } from "react-router-dom";
 import stock_teacher from "../assets/stock_teacher.png";
+import { useAuth } from "../hooks/useAuth";
 const TeacherCard = ({ teacher, onDelete }) => {
+  const { token } = useAuth();
   const navigate = useNavigate();
+
   return (
     <div className="flex items-center justify-between bg-white p-4 rounded-md shadow-sm border">
       <div className="flex items-center space-x-4">
@@ -22,7 +25,7 @@ const TeacherCard = ({ teacher, onDelete }) => {
           View Details
         </button>
         <button
-          onClick={() => alert("Edit functionality coming soon")}
+          onClick={() => navigate(`/admin/update/${teacher._id}`)}
           className="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           Edit
