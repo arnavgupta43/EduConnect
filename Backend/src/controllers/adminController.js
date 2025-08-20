@@ -118,10 +118,11 @@ const updateTeacher = async (req, res, next) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
-      const err = new Error("Invaild ObjectId");
+      const err = new Error("Invalid ObjectId");
       err.statusCode = StatusCodes.BAD_REQUEST;
       return next(err);
     }
+
     const {
       username,
       name,
@@ -137,30 +138,39 @@ const updateTeacher = async (req, res, next) => {
     } = req.body;
 
     const update = {};
+    const profileUpdate = {};
+
     if (username) update.username = username;
     if (name) update.name = name;
     if (email) update.email = email;
     if (password) update.passwordHash = await bcrypt.hash(password, 10);
-    if (age !== undefined) update["profile.age"] = age;
-    if (mobileNo !== undefined) update["profile.mobileNo"] = mobileNo;
-    if (address !== undefined) update["profile.address"] = address;
-    if (photo !== undefined) update["profile.photo"] = photo;
-    if (previousExperience !== undefined)
-      update["profile.previousExperience"] = previousExperience;
-    if (Array.isArray(researchInterests))
-      update["profile.researchInterests"] = researchInterests;
-    if (Array.isArray(publications))
-      update["profile.publications"] = publications;
 
+    if (age !== undefined) profileUpdate.age = age;
+    if (mobileNo !== undefined) profileUpdate.mobileNo = mobileNo;
+    if (address !== undefined) profileUpdate.address = address;
+    if (photo !== undefined) profileUpdate.photo = photo;
+    if (previousExperience !== undefined)
+      profileUpdate.previousExperience = previousExperience;
+    if (Array.isArray(researchInterests))
+      profileUpdate.researchInterests = researchInterests;
+    if (Array.isArray(publications)) profileUpdate.publications = publications;
+
+    if (Object.keys(profileUpdate).length > 0) {
+      update.profile = profileUpdate;
+    }
+    console.log(update);
     const teacher = await Teacher.findByIdAndUpdate(id, update, {
       new: true,
       runValidators: true,
     }).select("-passwordHash");
 
-    if (!teacher)
+    if (!teacher) {
       return next(
         Object.assign(new Error("Teacher Not Found"), { statusCode: 404 })
       );
+    }
+    console.log(teacher);
+
     res.json({ status: "success", teacher });
   } catch (err) {
     next(err);
