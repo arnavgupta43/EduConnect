@@ -31,7 +31,12 @@ const AdminDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${API}/admin/${id}`);
+      await axios.delete(`${API}/admin/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Teacher Deleted");
       fetchTeachers(page);
     } catch (err) {
       console.error("Error deleting teacher:", err);
