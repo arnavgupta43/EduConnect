@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import AdminHeader from "../components/AdminDashboard/AdminHeader";
 import EditTeacherForm from "../components/AdminDashboard/AdminEditForm";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -53,6 +54,7 @@ const AdminUpdate = () => {
 
   return (
     <>
+      <AdminHeader />
       {teacher ? (
         <EditTeacherForm teacher={teacher} onSubmit={handleUpdateTeacher} />
       ) : (
