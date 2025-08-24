@@ -3,6 +3,22 @@ import axios from "axios";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
+import { 
+  User, 
+  Mail, 
+  Lock, 
+  Phone, 
+  Calendar, 
+  Briefcase, 
+  Upload, 
+  Plus, 
+  Minus, 
+  UserPlus,
+  Image as ImageIcon,
+  BookOpen,
+  FileText,
+  Loader
+} from "lucide-react";
 
 const API = import.meta.env.VITE_API_BASE_URL;
 
@@ -114,145 +130,236 @@ const CreateForm = () => {
     }
   };
 
+  const formFields = [
+    { label: "Full Name", name: "name", type: "text", icon: User, placeholder: "Enter teacher's full name" },
+    { label: "Username", name: "username", type: "text", icon: User, placeholder: "Enter unique username" },
+    { label: "Email Address", name: "email", type: "email", icon: Mail, placeholder: "Enter email address" },
+    { label: "Password", name: "password", type: "password", icon: Lock, placeholder: "Create a secure password" },
+    { label: "Age", name: "age", type: "number", icon: Calendar, placeholder: "Enter age" },
+    { label: "Mobile Number", name: "mobileNo", type: "text", icon: Phone, placeholder: "Enter mobile number" },
+    { label: "Previous Experience", name: "previousExperience", type: "text", icon: Briefcase, placeholder: "Describe previous experience" },
+  ];
+
   return (
-    <div className="bg-slate-100 min-h-screen py-10 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-12 px-4">
       <Toaster position="top-right" />
-      <form
-        onSubmit={submit}
-        className="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6 space-y-5"
-      >
-        <h2 className="text-2xl font-semibold text-indigo-700 mb-4">
-          Create Teacher Profile
-        </h2>
-
-        {[
-          { label: "Name", name: "name", type: "text" },
-          { label: "Username", name: "username", type: "text" },
-          { label: "Email", name: "email", type: "email" },
-          { label: "Password", name: "password", type: "password" },
-          { label: "Age", name: "age", type: "number" },
-          { label: "Mobile No", name: "mobileNo", type: "text" },
-          {
-            label: "Previous Experience",
-            name: "previousExperience",
-            type: "text",
-          },
-        ].map((field) => (
-          <div key={field.name}>
-            <label className="block text-slate-700 font-medium mb-1">
-              {field.label}
-            </label>
-            <input
-              type={field.type}
-              name={field.name}
-              value={formData[field.name]}
-              onChange={handleInputChange}
-              required
-              className="w-full border border-slate-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              disabled={isLoading}
-            />
+      
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-4">
+            <UserPlus className="w-8 h-8 text-white" />
           </div>
-        ))}
-
-        <div>
-          <label className="block text-slate-700 font-medium mb-1">
-            Upload Profile Image
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="w-full"
-            disabled={isLoading}
-          />
-          {preview && (
-            <img
-              src={preview}
-              alt="Preview"
-              className="mt-2 w-32 h-32 object-cover rounded-md shadow"
-            />
-          )}
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Teacher Profile</h1>
+          <p className="text-gray-600 text-lg">Add a new faculty member to the system</p>
         </div>
 
-        <div>
-          <label className="block text-slate-700 font-medium mb-1">
-            Research Interests
-          </label>
-          {researchInterests.map((r, index) => (
-            <div key={index} className="flex items-center gap-2 mb-2">
-              <input
-                type="text"
-                value={r.value}
-                onChange={(e) => handleResearchInterestChange(index, e)}
-                required
-                className="flex-1 border border-slate-300 px-3 py-2 rounded-md"
-                disabled={isLoading}
-              />
+        <form onSubmit={submit} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
+          <div className="p-8 space-y-8">
+            
+            {/* Basic Information Section */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
+                <div className="p-2 bg-blue-100 rounded-lg">
+                  <User className="w-5 h-5 text-blue-600" />
+                </div>
+                <h2 className="text-xl font-semibold text-gray-900">Basic Information</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {formFields.map((field) => {
+                  const Icon = field.icon;
+                  return (
+                    <div key={field.name} className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        {field.label}
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Icon className="w-5 h-5 text-gray-400" />
+                        </div>
+                        <input
+                          type={field.type}
+                          name={field.name}
+                          value={formData[field.name]}
+                          onChange={handleInputChange}
+                          placeholder={field.placeholder}
+                          required
+                          disabled={isLoading}
+                          className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-500"
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Profile Image Section */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
+                <div className="p-2 bg-emerald-100 rounded-lg">
+                  <ImageIcon className="w-5 h-5 text-emerald-600" />
+                </div>
+                <h2 className="text-xl font-semibold text-gray-900">Profile Image</h2>
+              </div>
+
+              <div className="flex flex-col md:flex-row gap-6 items-start">
+                <div className="flex-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Upload Profile Photo
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      disabled={isLoading}
+                      className="hidden"
+                      id="image-upload"
+                    />
+                    <label
+                      htmlFor="image-upload"
+                      className="flex items-center justify-center w-full px-6 py-4 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all duration-200"
+                    >
+                      <div className="text-center">
+                        <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                        <p className="text-sm font-medium text-gray-600">Click to upload image</p>
+                        <p className="text-xs text-gray-500">PNG, JPG up to 10MB</p>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                {preview && (
+                  <div className="flex-shrink-0">
+                    <div className="w-32 h-32 rounded-xl overflow-hidden border-4 border-white shadow-lg">
+                      <img
+                        src={preview}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Research Interests Section */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
+                <div className="p-2 bg-purple-100 rounded-lg">
+                  <BookOpen className="w-5 h-5 text-purple-600" />
+                </div>
+                <h2 className="text-xl font-semibold text-gray-900">Research Interests</h2>
+              </div>
+
+              <div className="space-y-3">
+                {researchInterests.map((r, index) => (
+                  <div key={index} className="flex items-center gap-3">
+                    <div className="flex-1">
+                      <input
+                        type="text"
+                        value={r.value}
+                        onChange={(e) => handleResearchInterestChange(index, e)}
+                        placeholder={`Research interest ${index + 1}`}
+                        required
+                        disabled={isLoading}
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:bg-gray-50"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeResearchInterest(index)}
+                      disabled={isLoading || researchInterests.length === 1}
+                      className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <Minus className="w-5 h-5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
               <button
                 type="button"
-                onClick={() => removeResearchInterest(index)}
-                className="text-red-600"
+                onClick={addResearchInterest}
                 disabled={isLoading}
+                className="flex items-center gap-2 px-4 py-2 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Remove
+                <Plus className="w-4 h-4" />
+                Add Research Interest
               </button>
             </div>
-          ))}
-          <button
-            type="button"
-            onClick={addResearchInterest}
-            className="text-indigo-600 hover:underline"
-            disabled={isLoading}
-          >
-            + Add Interest
-          </button>
-        </div>
 
-        <div>
-          <label className="block text-slate-700 font-medium mb-1">
-            Publications
-          </label>
-          {publications.map((p, index) => (
-            <div key={index} className="flex items-center gap-2 mb-2">
-              <input
-                type="text"
-                value={p.value}
-                onChange={(e) => handlePublicationChange(index, e)}
-                required
-                className="flex-1 border border-slate-300 px-3 py-2 rounded-md"
-                disabled={isLoading}
-              />
+            {/* Publications Section */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
+                <div className="p-2 bg-orange-100 rounded-lg">
+                  <FileText className="w-5 h-5 text-orange-600" />
+                </div>
+                <h2 className="text-xl font-semibold text-gray-900">Publications</h2>
+              </div>
+
+              <div className="space-y-3">
+                {publications.map((p, index) => (
+                  <div key={index} className="flex items-center gap-3">
+                    <div className="flex-1">
+                      <input
+                        type="text"
+                        value={p.value}
+                        onChange={(e) => handlePublicationChange(index, e)}
+                        placeholder={`Publication ${index + 1}`}
+                        required
+                        disabled={isLoading}
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 disabled:bg-gray-50"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removePublication(index)}
+                      disabled={isLoading || publications.length === 1}
+                      className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <Minus className="w-5 h-5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
               <button
                 type="button"
-                onClick={() => removePublication(index)}
-                className="text-red-600"
+                onClick={addPublication}
                 disabled={isLoading}
+                className="flex items-center gap-2 px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Remove
+                <Plus className="w-4 h-4" />
+                Add Publication
               </button>
             </div>
-          ))}
+          </div>
 
-          <button
-            type="button"
-            onClick={addPublication}
-            className="text-indigo-600 hover:underline"
-            disabled={isLoading}
-          >
-            + Add Publication
-          </button>
-        </div>
-
-        <button
-          type="submit"
-          className={`w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition ${
-            isLoading ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-          disabled={isLoading}
-        >
-          {isLoading ? "Submitting..." : "Create Teacher"}
-        </button>
-      </form>
+          {/* Submit Button */}
+          <div className="bg-gray-50 px-8 py-6">
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-medium py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] disabled:scale-100 disabled:cursor-not-allowed shadow-lg"
+            >
+              {isLoading ? (
+                <>
+                  <Loader className="w-5 h-5 animate-spin" />
+                  Creating Profile...
+                </>
+              ) : (
+                <>
+                  <UserPlus className="w-5 h-5" />
+                  Create Teacher Profile
+                </>
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
