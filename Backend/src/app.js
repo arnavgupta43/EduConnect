@@ -10,7 +10,7 @@ const dashboradRoute = require("./routes/dashboardRoute");
 const adminRoutes = require("./routes/adminRoutes");
 const uploadRoute = require("./routes/uploadRoute");
 const morgan = require("morgan");
-const FRONTEND_URL = "http://localhost:5173";
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 app.use(helmet());
 app.use(
   cors({
