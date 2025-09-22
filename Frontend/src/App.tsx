@@ -8,6 +8,8 @@ import AdminDashboard from "./pages/AdminDashBoard";
 import AdminViewTeacher from "./pages/AdminViewTeacher";
 import AdminCreateTeacher from "./pages/AdminCreateTeacher";
 import AdminUpdate from "./pages/AdminUpdate";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 import "./App.css";
 import "./index.css";
 import { Routes, Route } from "react-router-dom";
@@ -18,6 +20,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/teacher/login" element={<TeacherLogin />} />
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Route>
       <Route
         path="/admin/view/:id"
